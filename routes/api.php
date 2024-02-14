@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\VillageController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -17,3 +18,9 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('desa',[VillageController::class,'index']);
+Route::get('desa/{id}',[VillageController::class, 'show']);
+Route::post('desa',[VillageController::class,'store']);
+Route::put('desa/{id}',[VillageController::class,'update']);
+Route::delete('desa/{id}',[VillageController::class,'destroy']);
