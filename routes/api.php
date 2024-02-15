@@ -20,7 +20,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('desa',[VillageController::class,'index']);
-Route::get('desa/{id}',[VillageController::class, 'show']);
+Route::get('desa/{id}',[VillageController::class, 'show'])->where('id', '\d+');
 Route::post('desa',[VillageController::class,'store']);
-Route::put('desa/{id}',[VillageController::class,'update']);
-Route::delete('desa/{id}',[VillageController::class,'destroy']);
+Route::put('desa/{id}',[VillageController::class,'update'])->where('id', '\d+');
+Route::delete('desa/{id}',[VillageController::class,'destroy'])->where('id', '\d+');
