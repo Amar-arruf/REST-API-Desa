@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\VillageController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -15,12 +16,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+
+
+Route::post('register',[AuthController::class,'register']);
+Route::post('login',[AuthController::class, 'login']);
+
+Route::middleware('auth:sanctum')->group( function () {
+    Route::post('logout', [AuthController::class, 'logout']);
 });
 
-Route::get('desa',[VillageController::class,'index']);
-Route::get('desa/{id}',[VillageController::class, 'show'])->where('id', '\d+');
-Route::post('desa',[VillageController::class,'store']);
-Route::put('desa/{id}',[VillageController::class,'update'])->where('id', '\d+');
-Route::delete('desa/{id}',[VillageController::class,'destroy'])->where('id', '\d+');
+Route::middleware('auth:sanctum')->get('desa',[VillageController::class,'index']);
+Route::middleware('auth:sanctum')->get('desa/{id}',[VillageController::class, 'show'])->where('id', '\d+');
+Route::middleware('auth:sanctum')->post('desa',[VillageController::class,'store']);
+Route::middleware('auth:sanctum')->put('desa/{id}',[VillageController::class,'update'])->where('id', '\d+');
+Route::middleware('auth:sanctum')->delete('desa/{id}',[VillageController::class,'destroy'])->where('id', '\d+');
